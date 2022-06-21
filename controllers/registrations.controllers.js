@@ -71,11 +71,10 @@ const updateRegistrations = async (req,res)=>{
             
         };
 
-        await Registrations.update({ exitTime,status });
+        await registration.update({ exitTime,status });
 
-        res.status(204).json({
-            status: 'update',
-            registration
+        return res.status(204).json({
+            status: 'update'
         });
 
     } catch (error) {
@@ -84,7 +83,29 @@ const updateRegistrations = async (req,res)=>{
 };
 
 const deleteRegistrations = async (req,res)=>{
+    try {
+        const { id } = req.params;
+        const { exitTime,status } = req.body;
 
+        const registration = await Registrations.findOne({ where: { id } });
+
+        if (!registration) {
+            res.status(404).json({
+                status: 'error',
+                message: 'user not exist'
+            });
+            
+        };
+
+        await registration.destroy();
+
+        return res.status(204).json({
+            status: 'delete'
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 module.exports = {

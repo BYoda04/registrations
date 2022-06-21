@@ -16,7 +16,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api',registrationsRouter);
+app.use('/api/v1',registrationsRouter);
 
 app.listen(4000,()=>{
     console.log('express app running!!');
