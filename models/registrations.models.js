@@ -10,7 +10,7 @@ const Registrations = db.define('registrations', {
     },
     entranceTime: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: false
     },
     exitTime: {
         type: DataTypes.DATE,
