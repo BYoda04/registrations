@@ -40,11 +40,11 @@ const getRegistrationsById = async (req,res)=>{
 
 const createRegistrations = async (req,res)=>{
     try {
-        const { entranceTime, status } = req.body;
+        const { entranceTime } = req.body;
 
         const registration = await Registrations.create({
             entranceTime,
-            status
+            status:"working"
         });
 
         res.status(201).json({
@@ -59,7 +59,7 @@ const createRegistrations = async (req,res)=>{
 const updateRegistrations = async (req,res)=>{
     try {
         const { id } = req.params;
-        const { exitTime,status } = req.body;
+        const { exitTime } = req.body;
 
         const registration = await Registrations.findOne({ where: { id } });
 
@@ -71,7 +71,10 @@ const updateRegistrations = async (req,res)=>{
             
         };
 
-        await registration.update({ exitTime,status });
+        await registration.update({ 
+         exitTime,
+         status:"out"
+        });
 
         return res.status(204).json({
             status: 'update'
@@ -85,7 +88,6 @@ const updateRegistrations = async (req,res)=>{
 const deleteRegistrations = async (req,res)=>{
     try {
         const { id } = req.params;
-        const { exitTime,status } = req.body;
 
         const registration = await Registrations.findOne({ where: { id } });
 
@@ -97,7 +99,7 @@ const deleteRegistrations = async (req,res)=>{
             
         };
 
-        await registration.destroy();
+        await registration.update({ status:"deleted" });
 
         return res.status(204).json({
             status: 'delete'
