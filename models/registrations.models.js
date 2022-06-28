@@ -18,7 +18,7 @@ const Registrations = db.define('registrations', {
     },
     status: {
         type: DataTypes.STRING,
-        allowNull: false
+        default:"working"
     }
 });
 
